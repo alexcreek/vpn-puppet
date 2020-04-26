@@ -1,4 +1,4 @@
-class profile::openvpn::client {
+class vpn::client {
   package { 'openvpn':
     ensure => installed,
   }

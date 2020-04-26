@@ -1,6 +1,4 @@
-class profile::openvpn::server {
-  include profile::baseline
-
+class vpn::server {
   class { 'dns':
     forward            => only,
     forwarders         => ['8.8.8.8', '8.8.4.4'],
@@ -31,22 +29,18 @@ class profile::openvpn::server {
     cipher      => 'AES-128-CBC',
   }
 
-  openvpn::client { ['hq', 'mobile', 'remote']:}
-  
+  openvpn::client { ['vpncluster', 'mobile']:}
+
   Openvpn::Client_specific_config {
     server           => 'vpnserver',
   }
 
-  openvpn::client_specific_config { 'hq':
+  openvpn::client_specific_config { 'vpncluster':
     ifconfig         => '10.10.10.2 255.255.255.0',
   }
 
   openvpn::client_specific_config { 'mobile':
     ifconfig         => '10.10.10.3 255.255.255.0',
-  }
-
-  openvpn::client_specific_config { 'remote':
-    ifconfig         => '10.10.10.4 255.255.255.0',
   }
 
   # to allow saving rules
