@@ -1,3 +1,0 @@
-*filter
--I FORWARD ! -d 192.168.1.0/24 -o ens3 -j DROP
-COMMIT
