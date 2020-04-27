@@ -8,6 +8,8 @@ class vpn::server {
     }
   }
 
+  sysctl { 'net.ipv4.ip_forward': value => '1' }
+
   openvpn::server { 'vpnserver':
     topology     => 'subnet',
     proto        => 'udp',
