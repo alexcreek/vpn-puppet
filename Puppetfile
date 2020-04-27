@@ -1,4 +1,4 @@
-moduledir 'modules/'
+moduledir '/etc/puppetlabs/code/modules/'
 
 mod 'puppetlabs-apt', '7.4.1'
 mod 'puppetlabs-stdlib', '6.3.0'
