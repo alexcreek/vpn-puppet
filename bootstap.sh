@@ -23,16 +23,15 @@ popd
 /opt/puppetlabs/puppet/bin/r10k puppetfile install
 
 # install data
-PUPPET_DIR='/etc/puppetlabs/code/environments/production/'
 echo -e "${GREEN}[*] Installing data into ${PUPPET_DIR}${RESTORE}"
-if [[ $PWD =~ 'puppet-jank' ]]; then
-  rm -rf ${PUPPET_DIR}/*
-  mv $PWD/* $PWD/.git $PUPPET_DIR/
-  if [[ -L ~/production ]]; then
-    :
-  else
-    ln -s $PUPPET_DIR ~/production
-  fi
+PUPPET_DIR='/etc/puppetlabs/code/environments/production'
+[ -d "$PUPPET_DIR" ] ||  mkdir "$PUPPET_DIR"
+rm -rf ${PUPPET_DIR}/*
+mv "$PWD"/* "$PWD"/.git "$PUPPET_DIR"/
+if [[ -L ~/production ]]; then
+  :
+else
+  ln -s $PUPPET_DIR ~/production
 fi
 
 # patch and reboot because kernel exploits suck ass
