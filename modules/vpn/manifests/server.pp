@@ -11,25 +11,18 @@ class vpn::server {
   sysctl { 'net.ipv4.ip_forward': value => '1' }
 
   openvpn::server { 'vpnserver':
-    topology       => 'subnet',
-    proto          => 'udp',
-    local          => $::ipaddress,
-    cipher         => 'AES-128-CBC',
-    country        => 'US',
-    province       => 'CA',
-    city           => 'San Fran',
-    organization   => 'Prestige Worldwide',
-    email          => 'root@fuckoff.io',
-    server         => '10.10.10.0 255.255.255.0',
-    push           => ['dhcp-option DNS 10.10.10.1', 'redirect-gateway def1'],
-    crl_auto_renew => true,
-  }
-
-  cron { 'run puppet':
-    command     => "/opt/puppetlabs/bin/puppet apply -e 'include vpn::server'",
-    user        => root,
-    minute      => 0,
-    hour        => 0,
+    topology     => 'subnet',
+    proto        => 'udp',
+    local        => $::ipaddress,
+    cipher       => 'AES-128-CBC',
+    country      => 'US',
+    province     => 'CA',
+    city         => 'San Fran',
+    organization => 'Prestige Worldwide',
+    email        => 'root@fuckoff.io',
+    server       => '10.10.10.0 255.255.255.0',
+    push         => ['dhcp-option DNS 10.10.10.1', 'redirect-gateway def1'],
+    crl_verify   => false,
   }
 
   Openvpn::Client {
